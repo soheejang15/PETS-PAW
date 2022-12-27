@@ -23,7 +23,8 @@ const SearchFilter = () => {
   const [missingSido, setMissingSido] = useState<Option | null>(null);
   const [missingSigungu, setMissingSigungu] = useState<Option | null>(null);
 
-  const { initSearchFilter, applySearchFilter } = useSearchNoticeContext();
+  const { initSearchFilter, applySearchFilter, noticeCnt } =
+    useSearchNoticeContext();
 
   const clear = () => {
     initSearchFilter();
@@ -75,7 +76,7 @@ const SearchFilter = () => {
       />
       <S.ButtonAndTotalContainer>
         <S.Total>
-          검색결과 총 <b>300</b>건
+          검색결과 총 <b>{noticeCnt}</b>건
         </S.Total>
         <div>
           <S.Button onClick={clear}>초기화</S.Button>

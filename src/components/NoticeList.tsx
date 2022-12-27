@@ -9,12 +9,14 @@ import NoticeListItemSkeleton from "./NoticeListItemSkeleton";
 import Pagination from "./Pagination";
 
 const NoticeList = () => {
-  const { curPage, searchFilter, setMaxPageNum } = useSearchNoticeContext();
+  const { curPage, searchFilter, setMaxPageNum, setNoticeCnt } =
+    useSearchNoticeContext();
 
   const { noticeList, isLoading } = useGetNoticeList(
     curPage,
     searchFilter,
-    setMaxPageNum
+    setMaxPageNum,
+    setNoticeCnt
   );
 
   const list = () => {

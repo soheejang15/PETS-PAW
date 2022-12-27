@@ -25,6 +25,8 @@ interface SearchNoticeContext {
   applySearchFilter: (searchFilter: SearchFilter) => void;
   maxPageNum: number;
   setMaxPageNum: (max: number) => void;
+  noticeCnt: number;
+  setNoticeCnt: (cnt: number) => void;
   selectedNotice: Notice | null;
   setSelectedNotice: (notice: Notice | null) => void;
 }
@@ -46,6 +48,7 @@ export const SearchNoticeContextProvider = ({
 }) => {
   const [curPage, setCurPage] = useState(1);
   const [maxPageNum, setMaxPageNum] = useState(1);
+  const [noticeCnt, setNoticeCnt] = useState(0);
   const [searchFilter, setSearchFilter] =
     useState<SearchFilter>(initialSearchFilter);
   const [selectedNotice, setSelectedNotice] = useState<Notice | null>(null);
@@ -71,6 +74,8 @@ export const SearchNoticeContextProvider = ({
         setMaxPageNum,
         selectedNotice,
         setSelectedNotice,
+        noticeCnt,
+        setNoticeCnt,
       }}
     >
       {children}

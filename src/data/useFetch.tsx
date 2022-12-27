@@ -80,7 +80,8 @@ export const useGetNoticeList = (
     missingSido: string | null;
     missingSigungu: string | null;
   },
-  setMaxPageNum: (page: number) => void
+  setMaxPageNum: (page: number) => void,
+  setNoticeCnt: (cnt: number) => void
 ) => {
   const { data, refetch, isLoading } = useQuery(
     ["getNoticeList", curPage, searchFilter],
@@ -96,6 +97,7 @@ export const useGetNoticeList = (
         bgnde: searchFilter?.missingDate || null,
       });
 
+      setNoticeCnt(data.response.body.totalCount);
       setMaxPageNum(Math.ceil(data.response.body.totalCount / 10));
 
       return {
