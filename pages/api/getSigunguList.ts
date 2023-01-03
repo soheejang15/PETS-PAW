@@ -5,17 +5,21 @@ import {
   type GetSigunguListRemoteResponse,
 } from "../../thirdParties/openApi/remotes";
 
-export type Response = Array<{
-  code: string;
-  name: string;
-}>;
+export type Response = {
+  sigunguList: Array<{
+    code: string;
+    name: string;
+  }>;
+};
 
 const parseResponse = (response: GetSigunguListRemoteResponse): Response => {
-  const sigungus = response.response.body.items.item;
-  return sigungus.map((sigungu) => ({
+  const sigunguList = response.response.body.items.item.map((sigungu) => ({
     code: sigungu.orgCd,
     name: sigungu.orgdownNm,
   }));
+  return {
+    sigunguList,
+  };
 };
 
 export default async function getSigunguList(
@@ -32,11 +36,9 @@ export default async function getSigunguList(
     res.status(200).json(parseResponse(data));
   } catch (e) {
     const error = e as Error;
-    res
-      .status(500)
-      .send({
-        a: error?.message,
-        b: JSON.stringify(error, null, 3),
-      } as unknown as Response);
+    res.status(500).send({
+      a: error?.message,
+      b: JSON.stringify(error, null, 3),
+    } as unknown as Response);
   }
 }
