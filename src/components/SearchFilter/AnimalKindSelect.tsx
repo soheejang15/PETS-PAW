@@ -16,12 +16,12 @@ interface Props {
 }
 
 interface Option {
-  label: string;
-  value: string;
+  code: string;
+  name: string;
 }
 
 const AnimalKindSelect = ({ upKind, kind, setUpKind, setKind }: Props) => {
-  const { kindList } = useGetKind(upKind?.value || null);
+  const { kindList } = useGetKind(upKind?.code || null);
 
   const changeUpKind = (upKind: Option | null) => {
     setKind(null);
@@ -38,16 +38,11 @@ const AnimalKindSelect = ({ upKind, kind, setUpKind, setKind }: Props) => {
             selectedOption={upKind}
             setSelectedOption={changeUpKind}
           />
-          {(upKind?.value === "417000" || upKind?.value === "422400") && (
+          {(upKind?.code === "417000" || upKind?.code === "422400") && (
             <SingleSelect
               selectedOption={kind}
               onChange={setKind}
-              options={
-                kindList?.map((kind) => ({
-                  label: kind.knm,
-                  value: kind.kindCd,
-                })) || []
-              }
+              options={kindList || []}
               isSearchable={true}
             />
           )}

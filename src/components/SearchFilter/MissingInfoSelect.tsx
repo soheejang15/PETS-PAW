@@ -1,13 +1,14 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import SingleSelect from "../customInputs/SingleSelect";
 
 import { useGetSidoQuery, useGetSigunguQuery } from "../../data/useFetch";
+import { parseStringToDate } from "../../util/data";
 
 import * as S from "./index.style";
 
 interface Option {
-  label: string;
-  value: string;
+  name: string;
+  code: string;
 }
 
 interface Props {
@@ -28,11 +29,19 @@ const MissingInfoSelect = ({
   setMissingSigungu,
 }: Props) => {
   const { sidoList } = useGetSidoQuery();
-  const { sigunguList } = useGetSigunguQuery(missingSido?.value || null);
+  const { sigunguList } = useGetSigunguQuery(missingSido?.code || null);
 
   const changeSido = (sido: Option | null) => {
     setMissingSigungu(null);
     setMissingSido(sido);
+  };
+
+  const changeDate = (e: ChangeEvent<HTMLInputElement>) => {
+    const today = new Date();
+    const selectedDay = new Date(e.target.value);
+    if (today >= selectedDay) {
+      setMissingDate(e.target.value.replaceAll("-", ""));
+    }
   };
 
   return (
@@ -41,8 +50,8 @@ const MissingInfoSelect = ({
         <S.FilterName>실종일자</S.FilterName>
         <S.DateInput
           type="date"
-          // value={missingDate}
-          onChange={(e) => setMissingDate(e.target.value.replaceAll("-", ""))}
+          value={parseStringToDate(missingDate)}
+          onChange={changeDate}
         />
       </div>
       <div>
@@ -50,24 +59,14 @@ const MissingInfoSelect = ({
         <S.MissingRegionContainer>
           <SingleSelect
             selectedOption={missingSido}
-            options={
-              sidoList?.map((sido) => ({
-                label: sido.orgdownNm,
-                value: sido.orgCd,
-              })) || []
-            }
+            options={sidoList || []}
             onChange={changeSido}
             isSearchable={true}
           />
           {missingSido && (
             <SingleSelect
               selectedOption={missingSigungu}
-              options={
-                sigunguList?.map((sigungu) => ({
-                  label: sigungu.orgdownNm,
-                  value: sigungu.orgCd,
-                })) || []
-              }
+              options={sigunguList || []}
               onChange={setMissingSigungu}
               isSearchable={true}
             />

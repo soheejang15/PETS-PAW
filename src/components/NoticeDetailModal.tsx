@@ -3,6 +3,8 @@ import { Notice } from "../data/interface";
 
 import * as S from "./NoticeDetailModal.style";
 
+import { parseNeutered, parseSex } from "../util/data";
+
 interface Props {
   setIsOpen: (isOpen: boolean) => void;
   notice: Notice;
@@ -76,11 +78,11 @@ const NoticeDetailModal = ({ setIsOpen, notice }: Props) => {
           </li>
           <li>
             <span>성별</span>
-            <span>{sexCd}</span>
+            <span>{parseSex(sexCd)}</span>
           </li>
           <li>
             <span>중성화 여부</span>
-            <span>{neuterYn}</span>
+            <span>{parseNeutered(neuterYn)}</span>
           </li>
           <li>
             <span>특이사항</span>

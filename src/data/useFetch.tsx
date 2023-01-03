@@ -1,23 +1,16 @@
 import React from "react";
 import { useQuery } from "react-query";
-import {
-  fetchNoticeList,
-  fetchSido,
-  fetchSigungu,
-  basePayload,
-  fetchKind,
-} from "./api";
+import { fetchNoticeList, fetchSido, fetchSigungu, fetchKind } from "./api";
 
 export const useGetSidoQuery = () => {
   const { data } = useQuery(
     "getSido",
     async () => {
       const data = await fetchSido({
-        ...basePayload,
         numOfRows: 100,
       });
 
-      return { sidoList: [...data.response.body.items.item] };
+      return data;
     },
     {
       cacheTime: Infinity,
@@ -35,9 +28,9 @@ export const useGetSigunguQuery = (upr_cd: string | null) => {
     async () => {
       if (upr_cd === null) return;
 
-      const data = await fetchSigungu({ ...basePayload, upr_cd });
+      const data = await fetchSigungu({ upr_cd });
 
-      return { sigunguList: [...data.response.body.items.item] };
+      return data;
     },
     {
       cacheTime: Infinity,
@@ -57,11 +50,9 @@ export const useGetKind = (up_kind_cd: string | null) => {
     async () => {
       if (up_kind_cd === null) return;
 
-      const data = await fetchKind({ ...basePayload, up_kind_cd });
+      const data = await fetchKind({ up_kind_cd });
 
-      return {
-        kindList: data.response.body.items.item,
-      };
+      return data;
     },
     {}
   );
@@ -87,7 +78,6 @@ export const useGetNoticeList = (
     ["getNoticeList", curPage, searchFilter],
     async () => {
       const data = await fetchNoticeList({
-        ...basePayload,
         pageNo: curPage,
         upkind: searchFilter?.upKind || null,
         kind: searchFilter?.kind || null,
@@ -97,13 +87,10 @@ export const useGetNoticeList = (
         bgnde: searchFilter?.missingDate || null,
       });
 
-      setNoticeCnt(data.response.body.totalCount);
-      setMaxPageNum(Math.ceil(data.response.body.totalCount / 10));
+      setNoticeCnt(data.totalCount);
+      setMaxPageNum(Math.ceil(data.totalCount / 10));
 
-      return {
-        noticeList: data.response.body?.items.item,
-        totalPageCount: data.response.body.totalCount,
-      };
+      return data;
     },
     {
       staleTime: 30 * 1000 * 60,
@@ -113,7 +100,7 @@ export const useGetNoticeList = (
   return {
     noticeList: data?.noticeList,
     getNoticeList: refetch,
-    totalPageCount: data?.totalPageCount,
+    totalPageCount: data?.totalCount,
     isLoading,
   };
 };

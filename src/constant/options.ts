@@ -1,15 +1,15 @@
 export const SEX_OPTIONS = [
-  { label: "암", value: "F" },
-  { label: "수", value: "M" },
+  { name: "암", code: "F" },
+  { name: "수", code: "M" },
 ];
 
 export const NEUTERED_OPTIONS = [
-  { label: "O", value: "Y" },
-  { label: "X", value: "N" },
+  { name: "O", code: "Y" },
+  { name: "X", code: "N" },
 ];
 
 export const UPKIND_OPTIONS = [
-  { label: "개", value: "417000" },
-  { label: "고양이", value: "422400" },
-  { label: "기타", value: "429900" },
+  { name: "개", code: "417000" },
+  { name: "고양이", code: "422400" },
+  { name: "기타", code: "429900" },
 ];

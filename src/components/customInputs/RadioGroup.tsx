@@ -3,8 +3,8 @@ import React from "react";
 import CheckBox from "./CheckBox";
 
 interface Option {
-  label: string;
-  value: string;
+  name: string;
+  code: string;
 }
 
 interface RadioGroupProps {
@@ -19,7 +19,7 @@ const RadioGroup = ({
   setSelectedOption,
 }: RadioGroupProps) => {
   const onChangeSelectOption = (option: Option) => {
-    if (selectedOption?.value === option.value) setSelectedOption(null);
+    if (selectedOption?.code === option.code) setSelectedOption(null);
     else setSelectedOption(option);
   };
 
@@ -27,11 +27,11 @@ const RadioGroup = ({
     <>
       {options.map((option) => (
         <CheckBox
-          key={option.value}
-          label={option.label}
-          value={option.value}
+          key={option.code}
+          label={option.name}
+          value={option.code}
           onChange={() => onChangeSelectOption(option)}
-          isSelected={selectedOption?.value === option.value}
+          isSelected={selectedOption?.code === option.code}
         />
       ))}
     </>

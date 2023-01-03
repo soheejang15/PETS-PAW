@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
   }
 
-  #__next {
+  #root {
     width: 100%;
     height: 100%;
   }

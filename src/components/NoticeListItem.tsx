@@ -6,6 +6,7 @@ import { Notice } from "../data/interface";
 
 import NoticeDetailModal from "./NoticeDetailModal";
 import PortalModal from "./PortalModal";
+import { parseNeutered, parseSex } from "../util/data";
 
 const NoticeListItem = (notice: Notice) => {
   const {
@@ -44,11 +45,11 @@ const NoticeListItem = (notice: Notice) => {
         </li>
         <li>
           <span>성별</span>
-          <span>{sexCd}</span>
+          <span>{parseSex(sexCd)}</span>
         </li>
         <li>
           <span>중성화 여부</span>
-          <span>{neuterYn}</span>
+          <span>{parseNeutered(neuterYn)}</span>
         </li>
         <li>
           <span>특이사항</span>

@@ -9,8 +9,8 @@ import SearchGuide from "./SearchGuide";
 import { useSearchNoticeContext } from "../../data/context/SearchNoticeContext";
 
 interface Option {
-  label: string;
-  value: string;
+  code: string;
+  name: string;
 }
 
 const SearchFilter = () => {
@@ -38,13 +38,13 @@ const SearchFilter = () => {
   };
   const apply = () => {
     applySearchFilter({
-      upKind: upKind?.value || null,
-      kind: kind?.value || null,
-      sex: sex?.value || null,
-      neutered: neutered?.value || null,
+      upKind: upKind?.code || null,
+      kind: kind?.code || null,
+      sex: sex?.code || null,
+      neutered: neutered?.code || null,
       missingDate: missingDate === "" ? null : missingDate,
-      missingSido: missingSido?.value || null,
-      missingSigungu: missingSigungu?.value || null,
+      missingSido: missingSido?.code || null,
+      missingSigungu: missingSigungu?.code || null,
     });
   };
 

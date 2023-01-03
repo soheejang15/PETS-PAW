@@ -1,10 +1,12 @@
 import React, { ChangeEvent, useState } from "react";
 
 import * as S from "./SingleSelect.style";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSortDown, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 interface Option {
-  label: string;
-  value: string;
+  code: string;
+  name: string;
 }
 
 interface SingleSelectProps {
@@ -47,22 +49,22 @@ const SingleSelect = ({
           <S.SearchBar isOpen={isOpen}>
             <S.SearchInput
               type="text"
-              placeholder={selectedOption?.label}
+              placeholder={selectedOption?.name}
               onChange={handleChangeKeyword}
             />
             <S.ExtensionButton onClick={toggleIsOpen}>
-              <i className="fa-sharp fa-solid fa-sort-down"></i>
+              <FontAwesomeIcon icon={faSortDown} />
             </S.ExtensionButton>
           </S.SearchBar>
           <S.OptionList>
             {options
-              .filter((option) => option.label.includes(keyword))
+              .filter((option) => option.name.includes(keyword))
               .map((option) => (
                 <S.Option
                   onMouseDown={() => handleClickItem(option)}
-                  key={option?.value}
+                  key={option?.code}
                 >
-                  {option?.label}
+                  {option?.name}
                 </S.Option>
               ))}
           </S.OptionList>
@@ -70,15 +72,15 @@ const SingleSelect = ({
       ) : (
         <S.SearchBar>
           <S.SelectedItem onClick={toggleIsOpen}>
-            {selectedOption?.label || "전체"}
+            {selectedOption?.name || "전체"}
           </S.SelectedItem>
           {selectedOption && (
             <S.ExtensionButton onClick={clearOption}>
-              <i className="fa-solid fa-xmark"></i>
+              <FontAwesomeIcon icon={faXmark} />
             </S.ExtensionButton>
           )}
           <S.ExtensionButton onClick={toggleIsOpen}>
-            <i className="fa-sharp fa-solid fa-sort-down"></i>
+            <FontAwesomeIcon icon={faSortDown} />
           </S.ExtensionButton>
         </S.SearchBar>
       )}
