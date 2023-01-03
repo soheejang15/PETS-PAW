@@ -33,6 +33,12 @@ export default async function getKindList(
 
     res.status(200).json(parseResponse(data));
   } catch (e) {
-    console.log(e);
+    const error = e as Error;
+    res
+      .status(500)
+      .send({
+        a: error?.message,
+        b: JSON.stringify(error, null, 3),
+      } as unknown as Response);
   }
 }
