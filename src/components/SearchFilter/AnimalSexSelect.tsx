@@ -7,8 +7,8 @@ import * as S from "./index.style";
 import { SEX_OPTIONS, NEUTERED_OPTIONS } from "../../constant/options";
 
 interface Option {
-  label: string;
-  value: string;
+  code: string;
+  name: string;
 }
 
 interface Props {

@@ -4,7 +4,11 @@ import { createPortal } from "react-dom";
 const PortalModal = ({ children }: { children: React.ReactNode }) => {
   const root = document.querySelector("#__next");
 
-  return createPortal(children, root);
+  if (root) {
+    return createPortal(children, root);
+  }
+
+  return <></>;
 };
 
 export default PortalModal;
